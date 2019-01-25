@@ -4,7 +4,7 @@
 
 ## Cedric Oeldorf
 
-## June 10, 2018
+June 10, 2018
 
 ```
 Abstract
@@ -76,8 +76,8 @@ various cryptocurrency news accounts and day traders and will serve as the testi
 hypothesis regarding correlating sentiment and the Bitcoin price. Historical Bitcoin market data
 was streamed from theCoinmarketcapAPI.
 
-```
 ![Alt](./paper/Image_002.jpg)
+```
 Figure 1: Sourced User Accounts
 ```
 Figure 1 depicts 6 large accounts in terms of following. By having a large reach we assume
@@ -91,8 +91,8 @@ accounts.
 
 This section will outline the individual elements of the pipeline used for this report. Once both
 
-```
 ![Alt](./paper/Image_003.png)
+```
 Figure 2: Pipeline for this Report
 ```
 data sets are brought into a format compatible with our functions, we move onto cleaning the data
@@ -115,8 +115,9 @@ when it comes to market terms, the sentiment is incredibly unclear and usually b
 by users through the use of emoji. Figure 2 depicts two examples of both positive and negative
 sentiment with regards to the markets. It is clear that we would want to capture the information
 
-```
+
 ![Alt](./paper/Image_004.png)
+```
 Figure 3: Tweets
 ```
 held within these emoji as opposed to erasing them.
@@ -169,9 +170,10 @@ words probably carry a lot of meaning but might be drowned by the sheer number o
 words that appear. Multiplying the Word2Vec embedding with this score should further separate
 certain words in the vector space, which should improve the accuracy of our model.
 
-```
+
 ![Alt](./paper/Image_005.jpg)
 ![Alt](./paper/Image_006.jpg)
+```
 Figure 4: Compressed Embeddings of Main and Transfer Data
 ```
 Figure 3 depicts a small sample of word embeddings after having the dimensions reduced by
@@ -191,8 +193,9 @@ will be trained on the original data set and then fine-tuned through transfer le
 In order to avoid over-fitting we kept the FFNN rather simple and applied the transfer learning
 on the whole network as opposed to freezing layers before training.
 
-```
+
 ![Alt](./paper/Image_007.png)
+```
 Figure 5: FFNN Architecture
 ```
 The network takes an N x 300 dimensional matrix as input, where each instance is a 300 element
@@ -210,8 +213,9 @@ surprisingly 2 percentage points lower than the performance of the FFNN. In the 
 applying transfer learning, it has to be decided what layers (if any) are to be frozen for training.
 
 
-```
+
 ![Alt](./paper/Image_008.png)
+```
 Figure 6: CNN Architecture
 ```
 Testing multiple combinations of frozen layers it became clear that there is a trade-off between
@@ -220,8 +224,9 @@ on one saw a decrease in accuracy on the other. Taking this into account, it bec
 freezing the CNN layers gave the best results. The biggest challenge, as Figure 6 depicts, is that
 this fine-tuning very quickly results in over fitting.
 
-```
+
 ![Alt](./paper/Image_009.jpg)
+```
 Figure 7: Training Visualization
 ```
 After only 5 epochs, the blue line, which represents the accuracy on the training set, rises very
@@ -237,8 +242,9 @@ the accuracy that matters for our application on the cryptocurrency market.
 
 ### 4.1 Accuracy
 
-```
+
 ![Alt](./paper/Image_010.jpg)
+```
 Figure 8: Transfer Learning Accuracy Increase
 ```
 Figure 8 depicts the accuracy on the testing data. The blue bars are the accuracy before transfer
@@ -256,8 +262,9 @@ positive, hence it is also known as the true positive rate or recall. Specificit
 of negative predictions that were truly negative, also known as the true negative rate.
 
 
-```
+
 ![Alt](./paper/Image_011.jpg)
+```
 Figure 9: Transfer Learning Accuracy Increase
 ```
 Seen in Figure 9, there seems to be a proportional trade-off between sensitivity and specificity.
@@ -272,16 +279,18 @@ For every user the sentiment over time was calculated as can be seen in Figure 1
 to note that, although noisy, there seems to be general consensus in the sentiment trend over time.
 Two major dips in sentiment can be identified around the dates of 2018-04-05 and 2018-05-03.
 
-```
+
 ![Alt](./paper/Image_012.jpg)
+```
 Figure 10: Sentiment of Individual Sources
 ```
 
 In order to compare the sentiment to the Bitcoin price, we average the sentiment of all sources
 and take a rolling mean in order to smooth the signal. The result is as follows:
 
-```
+
 ![Alt](./paper/Image_013.jpg)
+```
 Figure 11: Average Sentiment and Bitcoin Price
 ```
 There is no clear visual correlation between the sentiment and the Bitcoin price. The Pearson-
